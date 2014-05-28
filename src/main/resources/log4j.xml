@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+  <appender name="console" class="org.apache.log4j.ConsoleAppender">
+    <param name="Target" value="System.out"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%p] %d [%t] %x %C - %m%n"/>
+    </layout>
+  </appender>
+
+  <appender name="rollingLib" class="org.apache.log4j.RollingFileAppender">
+    <param name="file" value="logs/converter-lib.log"/>
+    <param name="MaxFileSize" value="10MB"/>
+    <!-- Keep one backup file -->
+    <param name="MaxBackupIndex" value="100"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%p] %d [%t] %x %C - %m%n"/>
+    </layout>
+  </appender>
+  
+  <appender name="rollingGui" class="org.apache.log4j.RollingFileAppender">
+    <param name="file" value="logs/converter-gui.log"/>
+    <param name="MaxFileSize" value="10MB"/>
+    <!-- Keep one backup file -->
+    <param name="MaxBackupIndex" value="100"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%p] %d [%t] %x %C - %m%n"/>
+    </layout>
+  </appender>
+  
+  <logger name="eu.citadel.converter">
+    <level value="trace"/>
+    <appender-ref ref="rollingLib" />
+  </logger>
+  <logger name="eu.citadel.converter.transform.CitadelJsonTransform.getValueWithDatatype">
+    <level value="debug"/>
+  </logger>
+  <logger name="eu.citadel.converter.transform.CitadelJsonTransform.inspectValue">
+    <level value="info"/>
+  </logger>
+  <logger name="eu.citadel.converter.transform.CitadelJsonTransform.getStringValue">
+    <level value="info"/>
+  </logger>
+  <logger name="eu.citadel.converter.transform.CitadelJsonTransform.getLoopContent">
+    <level value="debug"/>
+  </logger>
+  <logger name="eu.citadel.converter.schema.visitor">
+    <level value="debug"/>
+  </logger>
+  <logger name="eu.citadel.converter.schema.obj">
+    <level value="info"/>
+  </logger>
+  <logger name="eu.citadel.converter.gui" additivity="false">
+    <level value="debug"/>
+    <appender-ref ref="console" />
+    <appender-ref ref="rollingGui" />
+  </logger>
+  <root>
+    <priority value="debug" />
+    <appender-ref ref="console" />
+  </root>
+</log4j:configuration>
